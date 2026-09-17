@@ -346,6 +346,16 @@ public Action OnPlayerRunCmd(int iClient, int &iButtons, int &iImpulse, float ve
 					vecVertex[1] = g_eNavEdit[iClient].vecNodeOrigin[1] + fRadius * Sine(fAngOffset + fAngXY);
 					vecVertex[2] = g_eNavEdit[iClient].vecNodeOrigin[2];
 
+					float vecTraceStart[3];
+					vecTraceStart[0] = vecVertex[0];
+					vecTraceStart[1] = vecVertex[1];
+					vecTraceStart[2] = vecVertex[2] + 50.0;
+
+					float vecTraceEnd[3];
+					if (GetTraceEndpoint(vecTraceStart, {90.0, 00.0, 0.0}, vecTraceEnd)) {
+						vecVertex[2] = vecTraceEnd[2];
+					}
+
 					g_eNavEdit[iClient].SetVertex(i, vecVertex);
 
 					if (i > 0) {
@@ -366,6 +376,16 @@ public Action OnPlayerRunCmd(int iClient, int &iButtons, int &iImpulse, float ve
 					vecEndPos = g_eNavEdit[iClient].vecNodeOrigin;
 					vecEndPos[0] += fRadius * Cosine(fAngOffset);
 					vecEndPos[1] += fRadius * Sine(fAngOffset);
+
+					float vecTraceStart[3];
+					vecTraceStart[0] = vecEndPos[0];
+					vecTraceStart[1] = vecEndPos[1];
+					vecTraceStart[2] = vecEndPos[2] + 50.0;
+
+					float vecTraceEnd[3];
+					if (GetTraceEndpoint(vecTraceStart, {90.0, 00.0, 0.0}, vecTraceEnd)) {
+						vecEndPos[2] = vecTraceEnd[2];
+					}
 
 					DrawDebugLine(g_eNavEdit[iClient].vecNodeOrigin, vecEndPos, COLOR_YELLOW);
 				}
