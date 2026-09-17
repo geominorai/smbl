@@ -849,8 +849,9 @@ void SnapToGrid(float vecPos[3], const int iSnapInterval) {
 	vecTraceStart[2] = vecPos[2] + 10.0;
 
 	float vecTraceEnd[3];
-	GetTraceEndpoint(vecTraceStart, {90.0, 00.0, 0.0}, vecTraceEnd);
-	vecPos[2] = vecTraceEnd[2];
+	if (GetTraceEndpoint(vecTraceStart, {90.0, 00.0, 0.0}, vecTraceEnd)) {
+		vecPos[2] = vecTraceEnd[2];
+	}
 }
 
 float GetVectorLength2D(float vecVector[3]) {
